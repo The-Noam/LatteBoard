@@ -1,4 +1,5 @@
 from tkinter import *
+import pickle
 
 
 def jobChat():
@@ -20,14 +21,11 @@ def jobChat():
     """)
 
 
-def tasks():
-    print("""
-    TASKS:
-    ------
-    1.Publish the software
-    2.Connect to IC server
-    3.Drink Latte
-    """)
+def createTask():
+    a = input("enter a task: ")
+
+    with open('filename.pickle', 'wb') as handle:
+        pickle.dump(a, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 def cloudFiles():
@@ -78,6 +76,13 @@ def settings():
 def newClass():
     a = input("Name of the Class: ")
     print(f"class name: {a}")
+
+
+def tasks():
+    with open('filename.pickle', 'rb') as handle:
+        b = pickle.load(handle)
+
+    print(f"{b}")
 
 
 # Software (GUI)
@@ -135,13 +140,14 @@ button5.pack()
 label2 = Label(tk, text="\nLatteBoard™ LLC.", bg="#303752")
 label2.pack()
 
-button6 = Button(tk, text="⚙️", command=settings, bg="#4C5C9A")
+button6 = Button(tk, text="settings", command=settings, bg="#4C5C9A")
 button6.place(x=0, y=0)
 
-button7 = Button(tk, text="📚", command=newClass, bg="#4C5C9A")
-button7.place(x=30, y=0)
+button7 = Button(tk, text="create new class", command=newClass, bg="#4C5C9A")
+button7.place(x=0, y=30)
 
-frame1 = Frame(tk, width="400", height="590", bg="#303752")
+button8 = Button(tk, text="create task", command=createTask, bg="#4C5C9A")
+button8.place(x=0, y=60)
 
 # MainLoop (runs the software repeatedly)
 
